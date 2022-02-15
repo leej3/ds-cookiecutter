@@ -1,0 +1,43 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.3/containers/azure-cli
+{
+	"name": "{{cookiecutter.github_proj}}",
+	"initializeCommand": "docker buildx install",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"cacheFrom": "{{cookiecutter.docker_registry}}/{{cookiecutter.pkg_name}}_dev_image:development",
+		"args": {
+			"INSTALL_ZSH": "false"
+		}
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-vscode.azurecli",
+		"ms-toolsai.jupyter",
+		"ms-toolsai.jupyter-keymap",
+		"ms-python.python"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"userEnvProbe": "interactiveShell",
+
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+	"runArgs": ["--init"],
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode",
+	// Features greatly slowdown rebuilds of codespaces... consider using the Dockerfile 
+	// to install the dependencies instead...
+	// // "features": {
+	// 	// "git": "os-provided",
+	// 	// "azure-cli": "latest"
+	// }
+}

@@ -1,0 +1,71 @@
+on: push
+
+name: Build development image
+env:
+  DOCKER_BUILDKIT: 1
+  BUILDKIT_PROGRESS: plain
+
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+        # checkout the repo
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@main
+#        - name: 'Checkout the submodule(s)'
+#          uses: actions/checkout@main
+#          with:
+#            repository: 'my-github-user/repo-with-my-dependency'
+#            ssh-key: ${{ secrets.AZURE_BOX_KEY }}
+#            path: external/repo-with-my-dependency
+        - name: 'Login via Azure CLI'
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+        - name: Extract repo name
+          run: echo "REPO=$(echo ${GITHUB_REPOSITORY#*/})" >> $GITHUB_ENV
+        - name: Set IMAGE_ID with the repo name
+          run: echo "IMAGE_ID=$(echo ${{ env.REPO }}_dev_image | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        - name: Set REMOTE_IMAGE used to refer to the docker image in the registry 
+          run: echo "REMOTE_IMAGE=${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_ID }}" >> $GITHUB_ENV
+        - name: Set the CACHING_BRANCH used for interacting with the azure image registry
+          run: echo "CACHING_BRANCH=development" >> $GITHUB_ENV
+        - name: Parse github ref to obtain the current BRANCH_NAME
+          run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
+        - name: 'Log in to the Azure registry'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - name: 'Build the image'
+          run: |
+            echo ${BRANCH_NAME}
+            export TAGS=" -t ${REMOTE_IMAGE}:${{ github.sha }} "
+            # Add cache image tag if on the development branch
+            if [[ ${BRANCH_NAME} != ${CACHING_BRANCH} ]]
+              then
+                echo We are currently not on the ${CACHING_BRANCH} branch. We will not overwrite the cache image in the registry
+              else
+                TAGS="${TAGS} -t ${REMOTE_IMAGE}:${BRANCH_NAME}"
+            fi
+
+            docker build . \
+              --cache-from ${REMOTE_IMAGE}:${CACHING_BRANCH} \
+              --build-arg BUILDKIT_INLINE_CACHE=1 \
+              ${TAGS} \
+              -f .devcontainer/Dockerfile
+        - name: Run tests
+          run: |
+            docker run --rm \
+              -v $PWD:/opt/${REPO} \
+              --workdir /opt/{REPO} \
+              -e FLIT_ROOT_INSTALL=1 \
+              ${REMOTE_IMAGE}:${{ github.sha }}  \
+              bash -lc 'flit install; pytest tests'
+
+        - name: 'Push image to the registry'
+          run: |
+            docker push --all-tags ${REMOTE_IMAGE}
+

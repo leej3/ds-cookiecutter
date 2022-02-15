@@ -1,0 +1,8 @@
+{
+    "github_proj": "project-name-on-github",
+    "pkg_name": "{{cookiecutter.github_proj.replace('-','_')}}",
+    "version": "0.0.1",
+    "_copy_without_render": [
+	    ".github/workflows/*"
+    ]
+}

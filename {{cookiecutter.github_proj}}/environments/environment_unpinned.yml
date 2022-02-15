@@ -1,0 +1,36 @@
+name: {{cookiecutter.pkg_name}}
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+# python packages
+  - python=3.8*
+  - flit
+  - altair=4.1*
+  - altair_saver
+  - pip=20.3*
+  - xlrd
+  - vega
+  - pylint
+  - py-opencv
+  - opencv
+  - notebook
+  - numpy
+  - nbformat
+  - nbconvert
+  - ipython_genutils
+  - ipywidgets
+  - ipython
+  - cairo
+  - pypdf2=1.26
+  - pyarrow
+  - openpyxl
+# R packages
+# pip installs
+  - pip:
+    - azure-core==1.10
+    - azure-identity==1.5
+    - azure-storage-blob==12.7
+    - azure-storage-file-share==12.4
+    - boxsdk==2.0
+    - ipykernel==5.4.3
