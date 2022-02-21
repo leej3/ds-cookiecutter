@@ -1,6 +1,6 @@
 # A cookiecutter for cloud driven data-science
 
-**TLDR: pip install cookiecutter; cookiecutter github.com/leej3/ds-cookiecutter**
+**TLDR: pip install cookiecutter; cookiecutter github.com/leej3/ds-cookiecutter (and then push to github and set the required CI variables)**
 
 While cloud hosted systems for continuous integration have been around for a while they are typically coupled with a development approach where the compute and development environments are hosted locally, either on a personal computer, a company server, or perhaps a locally managed compute cluster. A relatively recent addition to the offerings from cloud computing providers is a cloud hosted development environment, exemplified by Gitpod and Codespaces among others. These services enable a full migration of a companies compute needs to the cloud (excepting the local thin client to use to connect to it). In a world of frequent reports of data breaches this prospect becomes increasingly appealing.
 
@@ -31,3 +31,4 @@ git clone https://github.com/leej3/ds-cookiecutter
 # Create your own project by following the instructions...
 cookiecutter ds-cookiecutter
 ```	
+Using the output of the above commands you can create a git repository, push it to github, set the required variables for github actions and you are away!
