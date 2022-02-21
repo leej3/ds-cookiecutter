@@ -1,6 +1,7 @@
 {
     "github_proj": "project-name-on-github",
     "pkg_name": "{{cookiecutter.github_proj.replace('-','_')}}",
+    "docker_registry_and_user": "registry.hub.docker.com/my-dockerhub-user",
     "version": "0.0.1",
     "_copy_without_render": [
 	    ".github/workflows/*"

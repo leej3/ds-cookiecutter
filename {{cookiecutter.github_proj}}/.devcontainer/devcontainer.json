@@ -6,7 +6,7 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
-		"cacheFrom": "{{cookiecutter.docker_registry}}/{{cookiecutter.pkg_name}}_dev_image:development",
+		"cacheFrom": "{{cookiecutter.docker_registry_and_user}}/{{cookiecutter.pkg_name}}_dev_image:development",
 		"args": {
 			"INSTALL_ZSH": "false"
 		}
