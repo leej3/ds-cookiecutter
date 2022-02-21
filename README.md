@@ -19,6 +19,7 @@ Concisely, this repository proposes the following project organization to allow 
 
 For further information on cookiecutter (the tool used here to help create a generic data-science template) see [these docs](https://cookiecutter.readthedocs.io/en/2.0.2/overview.html).
 
+## Setup
 To use this repo to generate a new project run:
 
 ```
@@ -32,3 +33,10 @@ git clone https://github.com/leej3/ds-cookiecutter
 cookiecutter ds-cookiecutter
 ```	
 Using the output of the above commands you can create a git repository, push it to github, set the required variables for github actions and you are away!
+
+## Similar projects
+
+There are some similar projects with different focuses that you should check out:
++ [This one](https://towardsdatascience.com/automate-the-structure-of-your-data-science-projects-with-cookiecutter-937b244114d8) focuses on deploying pure python apps
++ [This one](https://github.com/Quansight/starter-ml-tabular) focuses on ML for tabular data
++ [This one](https://github.com/drivendata/cookiecutter-data-science/tree/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D) is similar but has various differences in how the project is organized
