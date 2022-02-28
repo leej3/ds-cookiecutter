@@ -36,7 +36,7 @@ Using the output of the above commands you can create a git repository, push it 
 
 ## Similar projects
 
-There are some similar projects with different focuses that you should check out:
-+ [This one](https://towardsdatascience.com/automate-the-structure-of-your-data-science-projects-with-cookiecutter-937b244114d8) focuses on deploying pure python apps
-+ [This one](https://github.com/Quansight/starter-ml-tabular) focuses on ML for tabular data
-+ [This one](https://github.com/drivendata/cookiecutter-data-science/tree/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D) is similar but has various differences in how the project is organized
+Check out these other similar projects:
++ [With an emphasis on pure python web apps](https://towardsdatascience.com/automate-the-structure-of-your-data-science-projects-with-cookiecutter-937b244114d8)
++ [When machine learning is your focus](https://github.com/Quansight/starter-ml-tabular)
++ [Another general purpose template](https://github.com/drivendata/cookiecutter-data-science/tree/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D)
